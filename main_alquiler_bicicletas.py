@@ -15,6 +15,9 @@ El sistema usa listas y diccionarios para guardar datos en memoria.
 Al cerrar el programa, los datos cargados durante la ejecucion se pierden.
 """
 
+import os
+
+
 # =========================
 # CONSTANTES DEL SISTEMA
 # =========================
@@ -547,6 +550,21 @@ def mostrar_estadisticas(recaudacion_total, total_alquileres_finalizados, tiempo
         print("Bicicleta mas utilizada: sin datos")
 
 
+
+def limpiar_pantalla():
+    """
+    Limpia la consola para que el menu no se acumule visualmente.
+    """
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+def pausar():
+    """
+    Pausa el programa para que el usuario pueda leer el resultado.
+    """
+    input("\nPresione ENTER para volver al menu...")
+
+
 # =========================
 # MENU PRINCIPAL
 # =========================
@@ -574,6 +592,7 @@ def main():
     """
     Funcion principal del programa.
     Contiene el ciclo repetitivo del menu.
+    Limpia la pantalla antes de volver al menu para que no se repita todo en pantalla.
     """
     recaudacion_total = 0
     total_alquileres_finalizados = 0
@@ -582,23 +601,31 @@ def main():
     opcion = -1
 
     while opcion != 0:
+        limpiar_pantalla()
         mostrar_menu()
         opcion = leer_entero("Seleccione una opcion: ", minimo=0, maximo=9)
 
+        limpiar_pantalla()
+
         if opcion == 1:
             registrar_cliente()
+            pausar()
 
         elif opcion == 2:
             listar_clientes()
+            pausar()
 
         elif opcion == 3:
             listar_bicicletas()
+            pausar()
 
         elif opcion == 4:
             listar_bicicletas_disponibles()
+            pausar()
 
         elif opcion == 5:
             iniciar_alquiler()
+            pausar()
 
         elif opcion == 6:
             recaudacion_total, total_alquileres_finalizados, tiempo_total_uso = finalizar_alquiler(
@@ -606,9 +633,11 @@ def main():
                 total_alquileres_finalizados,
                 tiempo_total_uso
             )
+            pausar()
 
         elif opcion == 7:
             listar_alquileres()
+            pausar()
 
         elif opcion == 8:
             mostrar_estadisticas(
@@ -616,9 +645,11 @@ def main():
                 total_alquileres_finalizados,
                 tiempo_total_uso
             )
+            pausar()
 
         elif opcion == 9:
             cambiar_estado_bicicleta()
+            pausar()
 
         elif opcion == 0:
             print("Saliendo del sistema. Gracias por utilizar el programa.")
